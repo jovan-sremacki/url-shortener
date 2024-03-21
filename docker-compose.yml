@@ -2,8 +2,11 @@ version: '3.8'
 services:
   app:
     image: webdevops/php-nginx:8.2
+    depends_on:
+      - db
     container_name: laravel_app
     restart: unless-stopped
+    working_dir: /app
     ports:
       - "8000:80"
     volumes:
@@ -15,7 +18,7 @@ services:
     container_name: laravel_db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: url_shortener
       MYSQL_USER: laraveluser
       MYSQL_PASSWORD: password123
       MYSQL_ROOT_PASSWORD: root_password123
@@ -23,6 +26,20 @@ services:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
+  db_test:
+      image: mysql:8.0
+      container_name: laravel_db_test
+      restart: unless-stopped
+      environment:
+        MYSQL_DATABASE: url_shortener_test
+        MYSQL_USER: testuser
+        MYSQL_PASSWORD: testpassword123
+        MYSQL_ROOT_PASSWORD: test_password123
+      ports:
+        - "3307:3306"
+      volumes:
+        - dbdata_test:/var/lib/mysql
 
 volumes:
   dbdata:
+  dbdata_test:
