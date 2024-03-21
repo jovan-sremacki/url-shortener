@@ -28,5 +28,8 @@ db-test-shell:
 migrate:
 	@docker-compose exec $(CONTAINER_PHP) php artisan migrate
 
+migrate-test:
+	@docker-compose exec $(CONTAINER_PHP) php artisan --env=testing migrate
+
 test:
 	@docker-compose exec $(CONTAINER_PHP) php artisan test
