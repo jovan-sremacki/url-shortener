@@ -21,8 +21,8 @@ class UrlControllerTest extends TestCase
     public function testInvalidUrl()
     {
         $response = $this->postJson('/api/shorten', ['url' => 'not-a-valid-url']);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors(['url']);
+        $response->assertStatus(400);
+        $response->assertJson(['error' => 'The url field must be a valid URL.']);
     }
 
     public function testDuplicateUrl()
