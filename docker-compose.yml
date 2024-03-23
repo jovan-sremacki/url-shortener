@@ -13,6 +13,7 @@ services:
       - ./:/app
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
+
   db:
     image: mysql:8.0
     container_name: laravel_db

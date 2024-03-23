@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class Url extends Model
+class ShortUrl extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -23,17 +24,11 @@ class Url extends Model
         parent::boot();
 
         static::creating(function ($url) {
-            $url->short_code = $url->generateShortCode();
-        });
-    }
+            do {
+                $shortCode = Str::random(6);
+            } while (ShortUrl::where('short_code', $shortCode)->exists());
 
-    /**
-     * Generate a unique short code for the URL.
-     *
-     * @return string
-     */
-    protected function generateShortCode(): string
-    {
-        return substr(md5(time() . uniqid()), 0, 6);
+            $url->short_code = $shortCode;
+        });
     }
 }
