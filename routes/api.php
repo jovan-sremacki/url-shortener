@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/shorten', [UrlController::class, 'store']);
+Route::get('/{code}', [UrlController::class, 'show']);
