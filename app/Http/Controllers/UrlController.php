@@ -3,52 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShortUrl;
-use App\Services\GoogleSafeBrowsingService;
-use Illuminate\Support\Str;
+use App\Exceptions\UrlNotSafeException;
+use App\Services\ShortUrlService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 
 class UrlController extends Controller
 {
+    public function __construct(ShortUrlService $shortUrlService)
+    {
+        $this->shortUrlService = $shortUrlService;
+    }
+
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'url' => 'required|url'
-        ]);
-
-        $originalUrl = $validatedData['url'];
-
         try {
-            $safeBrowsingService = new GoogleSafeBrowsingService();
-            $safeBrowsingService->urlIsSafe($originalUrl);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'URL is not safe according to Google Safe Browsing'], 422);        
-        }
+            $response = ShortUrlService::url($request->url)
+            ->checkSafety()
+            ->validate()
+            ->findOrCreate('original_url');
 
-        // if($safeBrowsingResponse->json()) {
-        //     return response()->json(['error' => 'URL is not safe according to Google Safe Browsing'], 422);
-        // }
-
-        $existingShortUrl = ShortUrl::where('original_url', $originalUrl)->first();
-
-        if($existingShortUrl) {
             return response()->json([
-                'short_url' => url("/{$existingShortUrl->short_code}")
+                'short_url' => url("/{$response->short_code}")
             ]);
+        } catch (UrlNotSafeException $e) {
+            return response()->json(['error' => 'URL is not safe according to Google Safe Browsing'], 422);
+        } catch(ValidationException $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
-
-        do {
-            $hash = Str::random(6);
-        } while (ShortUrl::where('short_code', $hash)->exists());
-
-        $shortUrl = ShortUrl::create([
-            'original_url' => $originalUrl,
-            'short_code' => $hash
-        ]);
-
-        return response()->json([
-            'short_url' => url("/{$shortUrl->short_code}")
-        ]);
     }
 
     public function show($code)

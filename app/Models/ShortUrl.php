@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class ShortUrl extends Model
 {
@@ -13,27 +14,21 @@ class ShortUrl extends Model
      */
     protected $fillable = ['original_url', 'short_code'];
 
-    // /**
-    //  * The "booting" method of the model.
-    //  *
-    //  * @return void
-    //  */
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
 
-    //     static::creating(function ($url) {
-    //         $url->short_code = $url->generateShortCode();
-    //     });
-    // }
+        static::creating(function ($url) {
+            do {
+                $shortCode = Str::random(6);
+            } while (ShortUrl::where('short_code', $shortCode)->exists());
 
-    // /**
-    //  * Generate a unique short code for the URL.
-    //  *
-    //  * @return string
-    //  */
-    // protected function generateShortCode(): string
-    // {
-    //     return substr(md5(time() . uniqid()), 0, 6);
-    // }
+            $url->short_code = $shortCode;
+        });
+    }
 }
