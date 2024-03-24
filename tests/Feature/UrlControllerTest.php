@@ -66,7 +66,7 @@ class UrlControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'redirect_url' => url("/{$shortUrl->original_url}")
+            'redirect_url' => $shortUrl->original_url
         ]);
     }
 
@@ -78,5 +78,13 @@ class UrlControllerTest extends TestCase
         $response->assertJson([
             'redirect_url' => url('/')
         ]);
+    }
+
+    public function testRedirectCodeIsNotSixCharactersLong()
+    {
+        $response = $this->getJson("/api/2123");
+
+        $response->assertStatus(422);
+        $response->assertJsonStructure(['errors']);
     }
 }
