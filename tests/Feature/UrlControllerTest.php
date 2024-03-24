@@ -40,7 +40,7 @@ class UrlControllerTest extends TestCase
 
     public function testUnsafeUrl()
     {
-        $apiKey = "AIzaSyCd6WM-hmRQ7_QS62dBPeZW5AjCUhcPnos";
+        $apiKey = env('SAFE_BROWSING_API_KEY');
         Http::fake([
             "safebrowsing.googleapis.com/v4/threatMatches:find?key={$apiKey}" => Http::response([
                 'error' => [

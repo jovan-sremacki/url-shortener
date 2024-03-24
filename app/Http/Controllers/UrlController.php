@@ -27,7 +27,7 @@ class UrlController extends Controller
                 'short_url' => url("/{$response->short_code}")
             ]);
         } catch (UrlNotSafeException $e) {
-            return response()->json(['error' => 'URL is not safe according to Google Safe Browsing'], 422);
+            return response()->json(['error' => $e->getMessage()], 422);
         } catch(ValidationException $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
