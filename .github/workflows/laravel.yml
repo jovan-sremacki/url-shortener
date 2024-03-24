@@ -35,4 +35,4 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
         SAFE_BROWSING_API_KEY: ${{ secrets.SAFE_BROWSING_API_KEY }}
-      run: php artisan test
+      run: vendor/bin/phpunit
