@@ -79,4 +79,12 @@ class UrlControllerTest extends TestCase
             'redirect_url' => url('/')
         ]);
     }
+
+    public function testRedirectCodeIsNotSixCharactersLong()
+    {
+        $response = $this->getJson("/api/2123");
+
+        $response->assertStatus(422);
+        $response->assertJsonStructure(['errors']);
+    }
 }

@@ -25,7 +25,7 @@ class ShortCodeValidator
     public static function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'short_code' => 'string'
+            'short_code' => 'required|string|size:6',
         ]);
 
         if ($validator->fails()) {
