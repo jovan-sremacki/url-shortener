@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\ShortUrl;
+use App\Validators\ShortUrlValidator;
+use App\Validators\ShortCodeValidator;
 
 /**
  * Service class responsible for handling the creation and retrieval of ShortUrl instances.
@@ -16,6 +18,7 @@ use App\Models\ShortUrl;
 class ShortUrlService
 {
     private $url;
+    private $short_code;
     private $safeBrowsingService;
     private $validatorService;
 
@@ -42,6 +45,19 @@ class ShortUrlService
     }
 
     /**
+     * Static method to set the code and instantiate the service.
+     * 
+     * @param string $code.
+     * @return ShortUrlService An instance of this service with the code set.
+     */
+    public static function code($short_code)
+    {
+        $instance = new self();
+        $instance->short_code = $short_code;
+        return $instance;
+    }
+
+    /**
      * Checks if the URL is safe to use by consulting the GoogleSafeBrowsingService.
      * 
      * @return $this Allows method chaining by returning the instance itself.
@@ -59,7 +75,18 @@ class ShortUrlService
      */
     public function validate()
     {
-        ShortUrlValidatorService::validate(['url' => $this->url]);
+        ShortUrlValidator::validate(['url' => $this->url]);
+        return $this;
+    }
+
+    /**
+     * Validates the URL format and conformity to certain standards.
+     * 
+     * @return $this Allows method chaining by returning the instance itself.
+     */
+    public function validateCode()
+    {
+        ShortCodeValidator::validate(['short_code' => $this->short_code]);
         return $this;
     }
 
@@ -69,14 +96,18 @@ class ShortUrlService
      * @param string $column The database column to search for the URL.
      * @return ShortUrl The found or created ShortUrl model instance.
      */
-    public function findOrCreate($column)
+    public function findOrCreate($column, $property)
     {
-        $existingShortUrl = ShortUrl::where($column, $this->url)->first();
+        $existingShortUrl = ShortUrl::where($column, $this->$property)->first();
 
         if ($existingShortUrl) {
             return $existingShortUrl;
         }
 
-        return ShortUrl::create(['original_url' => $this->url]);
+        if (!is_null($this->url)) {
+            return ShortUrl::create(['original_url' => $this->url]);
+        }
+
+        return null;
     }
 }

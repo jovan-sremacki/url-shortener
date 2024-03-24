@@ -21,7 +21,7 @@ class UrlController extends Controller
             $response = ShortUrlService::url($request->url)
             ->checkSafety()
             ->validate()
-            ->findOrCreate('original_url');
+            ->findOrCreate('original_url', 'url');
 
             return response()->json([
                 'short_url' => url("/{$response->short_code}")
@@ -35,11 +35,13 @@ class UrlController extends Controller
 
     public function show($code)
     {
-        $short_url = ShortUrl::where('short_code', $code)->first();
+        $short_url = ShortUrlService::code($code)
+        ->validateCode()
+        ->findOrCreate('short_code', 'short_code');
 
         if($short_url) {
             return response()->json([
-                'redirect_url' => url("/{$short_url->original_url}")
+                'redirect_url' => $short_url->original_url
             ]);
         }
 
