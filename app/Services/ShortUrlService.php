@@ -107,7 +107,5 @@ class ShortUrlService
         if (!is_null($this->url)) {
             return ShortUrl::create(['original_url' => $this->url]);
         }
-
-        return null;
     }
 }
