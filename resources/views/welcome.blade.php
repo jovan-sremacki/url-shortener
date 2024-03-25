@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="app">
-        <example />
+        <url-shortener-form />
     </div>
 </body>
 </html>
