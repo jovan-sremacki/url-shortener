@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\ShortUrlService;
+use App\Services\GoogleSafeBrowsingService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,8 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(\App\Services\ShortUrlService::class, function ($app) {
-            return new \App\Services\ShortUrlService();
+        $this->app->bind(SafeBrowsingServiceInterface::class, GoogleSafeBrowsingService::class);
+
+        $this->app->bind(ShortUrlService::class, function ($app) {
+            $safeBrowsingService = $app->make(SafeBrowsingServiceInterface::class);
+            return new ShortUrlService($safeBrowsingService);
         });
     }
 

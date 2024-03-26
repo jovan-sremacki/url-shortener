@@ -26,9 +26,9 @@ class ShortUrlService
      * Constructor for the ShortUrlService class.
      * Initializes the GoogleSafeBrowsingService.
      */
-    public function __construct()
+    public function __construct(SafeBrowsingServiceInterface $safeBrowsingService)
     {
-        $this->safeBrowsingService = new GoogleSafeBrowsingService();
+        $this->safeBrowsingService = $safeBrowsingService;
     }
 
     /**
@@ -39,7 +39,7 @@ class ShortUrlService
      */
     public static function url($url)
     {
-        $instance = new self();
+        $instance = app(self::class);
         $instance->url = $url;
         return $instance;
     }
@@ -52,7 +52,7 @@ class ShortUrlService
      */
     public static function code($short_code)
     {
-        $instance = new self();
+        $instance = app(self::class);
         $instance->short_code = $short_code;
         return $instance;
     }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
  * This service provides functionality to check URLs against Google's Safe Browsing API
  * to determine if they are considered safe.
  */
-class GoogleSafeBrowsingService
+class GoogleSafeBrowsingService implements SafeBrowsingServiceInterface
 {
     private $apiKey;
 
