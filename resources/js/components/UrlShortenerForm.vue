@@ -53,3 +53,76 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    font-family: 'Arial', sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+div a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+div a:hover {
+    text-decoration: underline;
+}
+
+div[role="alert"] {
+    color: #b90000;
+}
+
+.shortened-url,
+.error-message {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.shortened-url a {
+    font-weight: bold;
+}
+</style>
