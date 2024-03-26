@@ -1,11 +1,11 @@
 import './bootstrap';
 
 import { createApp } from 'vue';
-import Example from "./components/Example.vue"
+import UrlShortenerForm from "./components/UrlShortenerForm.vue"
 
 const app = createApp({
     components: {
-        Example
+        UrlShortenerForm
     }
 });
 
