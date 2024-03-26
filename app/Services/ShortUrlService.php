@@ -62,7 +62,7 @@ class ShortUrlService
      * 
      * @return $this Allows method chaining by returning the instance itself.
      */
-    public function checkSafety()
+    public function checkUrlSafety()
     {
         $this->safeBrowsingService->urlIsSafe($this->url);
         return $this;
@@ -73,7 +73,7 @@ class ShortUrlService
      * 
      * @return $this Allows method chaining by returning the instance itself.
      */
-    public function validate()
+    public function validateUrl()
     {
         ShortUrlValidator::validate(['url' => $this->url]);
         return $this;

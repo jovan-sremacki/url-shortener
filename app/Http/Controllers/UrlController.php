@@ -15,16 +15,18 @@ class UrlController extends Controller
         $this->shortUrlService = $shortUrlService;
     }
 
+    // Method to handle the storing (creation) of a new short URL.
+    // It validates the URL for safety and format before creating or finding the short URL.
     public function store(Request $request)
     {
         try {
-            $response = ShortUrlService::url($request->url)
-            ->checkSafety()
-            ->validate()
+            $shortUrl = ShortUrlService::url($request->url)
+            ->checkUrlSafety()
+            ->validateUrl()
             ->findOrCreate('original_url', 'url');
 
             return response()->json([
-                'short_url' => url("/{$response->short_code}")
+                'short_url' => url("/{$shortUrl->short_code}")
             ]);
         } catch (UrlNotSafeException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
@@ -33,15 +35,19 @@ class UrlController extends Controller
         }
     }
 
+    // Method to retrieve and redirect to the original URL based on the short code.
+    // It validates the short code format before retrieving the original URL.
     public function show($code)
     {
-        $short_url = ShortUrlService::code($code)
+        $shortUrl = ShortUrlService::code($code)
         ->validateCode()
         ->findOrCreate('short_code', 'short_code');
 
-        if($short_url) {
+        if($shortUrl) {
+            $shortUrl->increment('clicks');
+
             return response()->json([
-                'redirect_url' => $short_url->original_url
+                'redirect_url' => $shortUrl->original_url
             ]);
         }
 

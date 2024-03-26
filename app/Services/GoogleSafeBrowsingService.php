@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Http;
  * Service class for checking URL safety using the Google Safe Browsing API.
  *
  * This service provides functionality to check URLs against Google's Safe Browsing API
- * to determine if they are considered safe. It uses an API key for authentication with
- * the service and performs checks for specific types of threats like MALWARE and
- * SOCIAL_ENGINEERING for specified platform types.
+ * to determine if they are considered safe.
  */
 class GoogleSafeBrowsingService
 {
@@ -28,10 +26,6 @@ class GoogleSafeBrowsingService
 
     /**
      * Checks if the provided URL is safe according to Google Safe Browsing.
-     * 
-     * Sends a POST request to the Google Safe Browsing API with the URL to be checked,
-     * along with client and threat information. If the response indicates that the URL
-     * is unsafe, it throws a UrlNotSafeException.
      *
      * @param string $url The URL to be checked for safety.
      * @throws UrlNotSafeException If the URL is found to be unsafe according to the API response.

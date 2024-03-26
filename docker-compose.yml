@@ -19,10 +19,10 @@ services:
     container_name: laravel_db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: url_shortener
-      MYSQL_USER: laraveluser
-      MYSQL_PASSWORD: password123
-      MYSQL_ROOT_PASSWORD: root_password123
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -32,10 +32,10 @@ services:
       container_name: laravel_db_test
       restart: unless-stopped
       environment:
-        MYSQL_DATABASE: url_shortener_test
-        MYSQL_USER: testuser
-        MYSQL_PASSWORD: testpassword123
-        MYSQL_ROOT_PASSWORD: test_password123
+        MYSQL_DATABASE: ${DB_TEST_DATABASE}
+        MYSQL_USER: ${DB_USERNAME}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${DB_TEST_PASSWORD}
       ports:
         - "3307:3306"
       volumes:
