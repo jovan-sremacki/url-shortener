@@ -17,6 +17,16 @@ This project is a URL shortening service built with Laravel and Vue.js, utilizin
 - **Database**: MySQL
 - **Containerization**: Docker
 
+## Prerequisites
+Before beginning the setup, ensure the following software is installed on your machine:
+
+- Docker: For creating and managing containers. Docker Desktop is recommended for Windows and macOS users.
+- Docker Compose: Typically included with Docker Desktop on Windows and macOS, but may need to be installed separately on Linux.
+- Git: For cloning the repository (if applicable).
+- PHP: If you plan to run any PHP commands outside of Docker containers.
+- Composer: For managing PHP dependencies.
+- Node.js and npm: For managing JavaScript dependencies and running scripts (if your project uses Node.js).
+
 
 ## Setting up the environment
 
@@ -31,16 +41,6 @@ sudo chmod +x ./setup.sh
 ```
 
 If you're encountering issues with the automated setup script or prefer to configure your environment manually, the following guide offers a detailed, step-by-step approach to setting up your project environment.
-
-## Prerequisites
-Before beginning the setup, ensure the following software is installed on your machine:
-
-- Docker: For creating and managing containers. Docker Desktop is recommended for Windows and macOS users.
-- Docker Compose: Typically included with Docker Desktop on Windows and macOS, but may need to be installed separately on Linux.
-- Git: For cloning the repository (if applicable).
-- PHP: If you plan to run any PHP commands outside of Docker containers.
-- Composer: For managing PHP dependencies.
-- Node.js and npm: For managing JavaScript dependencies and running scripts (if your project uses Node.js).
 
 ## Manual Environment Setup Instructions
 
