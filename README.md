@@ -9,9 +9,6 @@ This project is a URL shortening service built with Laravel and Vue.js, utilizin
 - URL shortening with a simple, clean user interface
 - Full REST API for creating and retrieving shortened URLs
 - Integration with Google Safe Browsing API to ensure URL safety
-- Persistent storage of URLs with MySQL
-- Dockerized environment for development and production
-- Test-driven development approach using Laravel's testing features
 
 ## Technologies
 
