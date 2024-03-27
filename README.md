@@ -74,17 +74,20 @@ DB_PORT=3306
 DB_DATABASE=your-db-name
 DB_USERNAME=root
 DB_PASSWORD=your-password
+DB_TEST_PASSWORD=your-root-password
+SAFE_BROWSING_API_KEY=AIzaSyCd6WM-hmRQ7_QS62dBPeZW5AjCUhcPnos (This wouldn't be here in a real-life project)
 ```
 
 <b>.env.testing</b>
 
 ```
 DB_CONNECTION=mysql
-DB_HOST=db
+DB_HOST=db_test
 DB_PORT=3306
 DB_DATABASE=your-db-name
 DB_USERNAME=root
 DB_PASSWORD=your-password
+SAFE_BROWSING_API_KEY=AIzaSyCd6WM-hmRQ7_QS62dBPeZW5AjCUhcPnos (This wouldn't be here in a real-life project)
 ```
 
 - Make sure to replace any placeholder values with actual data relevant to your project and environment setup.
