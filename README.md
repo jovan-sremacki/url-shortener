@@ -26,6 +26,7 @@ Before beginning the setup, ensure the following software is installed on your m
 - PHP: If you plan to run any PHP commands outside of Docker containers.
 - Composer: For managing PHP dependencies.
 - Node.js and npm: For managing JavaScript dependencies and running scripts (if your project uses Node.js).
+- MySQL
 
 
 ## Setting up the environment
