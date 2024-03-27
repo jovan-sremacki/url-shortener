@@ -9,11 +9,6 @@ use App\Validators\ShortCodeValidator;
 /**
  * Service class responsible for handling the creation and retrieval of ShortUrl instances.
  *
- * This service offers functionality to ensure a URL is safe and conforms to validation
- * standards before attempting to find an existing ShortUrl record or create a new one. It
- * leverages a fluent interface to allow chaining of method calls for a streamlined process of
- * validating, checking the safety, and either retrieving or creating a ShortUrl instance based
- * on a given URL.
  */
 class ShortUrlService
 {

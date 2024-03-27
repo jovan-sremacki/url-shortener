@@ -32,7 +32,9 @@ class UrlController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         } catch(ValidationException $e) {
             return response()->json(['error' => $e->getMessage()], 400);
-        }
+        } catch (\Exception $e) {{
+            return response()->json(['error' => $e->getMessage()], 500);
+        }}
     }
 
     // Method to retrieve and redirect to the original URL based on the short code.

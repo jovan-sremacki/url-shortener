@@ -24,8 +24,16 @@ class ShortUrl extends Model
         parent::boot();
 
         static::creating(function ($url) {
+            $maxAttempts = 100;
+            $attempts = 0;
+
             do {
+                if ($attempts >= $maxAttempts) {
+                    throw new Exception("Could not generate a unique short code.");
+                }
+
                 $shortCode = Str::random(6);
+                $attempts++;
             } while (ShortUrl::where('short_code', $shortCode)->exists());
 
             $url->short_code = $shortCode;
