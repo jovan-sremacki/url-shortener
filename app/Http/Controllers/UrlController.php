@@ -20,7 +20,7 @@ class UrlController extends Controller
     public function store(Request $request)
     {
         try {
-            $shortUrl = ShortUrlService::url($request->url)
+            $shortUrl = $this->shortUrlService::url($request->url)
             ->checkUrlSafety()
             ->validateUrl()
             ->findOrCreate('original_url', 'url');
@@ -39,7 +39,7 @@ class UrlController extends Controller
     // It validates the short code format before retrieving the original URL.
     public function show($code)
     {
-        $shortUrl = ShortUrlService::code($code)
+        $shortUrl = $this->shortUrlService::code($code)
         ->validateCode()
         ->findOrCreate('short_code', 'short_code');
 
