@@ -30,7 +30,7 @@ sudo chmod +x ./setup.sh
 ./setup.sh
 ```
 
-If you're encountering issues with the automated setup script or prefer to configure your environment manually, the following guide offers a detailed, step-by-step approach to setting up your project environment. This guide is specifically tailored for Laravel projects utilizing Docker for containerization, ensuring a smooth setup process that gets your project up and running swiftly. Upon completing these instructions, your project should be fully operational and accessible through your browser, without the need for further adjustments.
+If you're encountering issues with the automated setup script or prefer to configure your environment manually, the following guide offers a detailed, step-by-step approach to setting up your project environment.
 
 ## Prerequisites
 Before beginning the setup, ensure the following software is installed on your machine:
